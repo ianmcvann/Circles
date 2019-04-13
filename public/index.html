@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Circles: Connections matter.</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/spacing.css">
+</head>
+
+<body>
+
+  <div class="columns" id="main-cols">
+    <div class="column is-3" id="left-circle-nav">
+      <section class="section">
+        <aside class="menu">
+          <p class="menu-label">
+            My Circles
+          </p>
+          <ul class="menu-list">
+            <li><a class="is-active">Circle1</a></li>
+            <li><a>Circle2</a></li>
+          </ul>
+          <p class="menu-label">
+            Circle Members
+          </p>
+          <ul class="menu-list">
+            <li><a>John Smith</a></li>
+            <li><a>Jane Doe</a></li>
+            <li><a>Ian McVann</a></li>
+          </ul>
+          <p class="menu-label">
+            Account
+          </p>
+          <ul class="menu-list">
+            <li><a>My Info</a></li>
+            <li><a>Prefrences</a></li>
+            <li><a>Billing</a></li>
+          </ul>
+        </aside>
+      </section>
+    </div>
+    <div class="column">
+      <div class="columns is-centered">
+        <div class="column is-1" id="left-arrrow">
+          <i class="fas fa-chevron-circle-left fa-3x m-t-xxxls"></i>
+        </div>
+        <div class="column is-5">
+          <section class="section m-t-xl">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-3by2">
+                  <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-4">John Smith</p>
+                    <p class="subtitle is-6">@johnsmith</p>
+                  </div>
+                </div>
+
+                <div class="content">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                  <a href="#">#css</a> <a href="#">#responsive</a>
+                  <br>
+                  <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="column is-1" id="right-arrow">
+          <i class="fas fa-chevron-circle-right fa-3x m-t-xxxls"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal is-active" id="memberModal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="box has-text-centered">
+        <h1 class="title is-2">Circles</h1>
+        <h1 class="subtitle is-4">Please login to continue.</h1>
+        <div class="field">
+          <p class="control has-icons-left has-icons-right">
+            <input class="input" type="email" placeholder="Email">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-check"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="password" placeholder="Password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-text-centered">
+            <button class="button is-success are-medium">
+              Login
+            </button>
+            <p>
+              Don't have an account?
+              <a href="/registrations/new">Sign Up</a>
+            </p>
+          </p>
+        </div>
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" id="modal-close-button"></button>
+  </div>
+
+
+  <script src="/node_modules/firebase/firebase.js">
+    var firebase = require("firebase/app")
+    require("firebase/auth")
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDZQePGS6QojlnId_6nDntKYu1ZeKEgtl4",
+      authDomain: "circles-network.firebaseapp.com",
+      databaseURL: "https://circles-network.firebaseio.com",
+      projectId: "circles-network",
+      storageBucket: "circles-network.appspot.com",
+      messagingSenderId: "500229346462"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.min.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#modal-close-button').on("click", function() {
+        $('#memberModal').removeClass("is-active");
+      })
+    });
+  </script>
+</body>
+
+</html>
