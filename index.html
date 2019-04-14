@@ -19,6 +19,7 @@
     <div class="column is-3" id="left-circle-nav">
       <section class="section">
         <aside class="menu">
+          <h1 class="title is-1">Circles</h1>
           <p class="menu-label">
             My Circles
           </p>
@@ -42,6 +43,7 @@
             <li><a>Prefrences</a></li>
             <li><a>Billing</a></li>
           </ul>
+          <h1 class="title is-3" id="welcome-text"></h1>
         </aside>
       </section>
     </div>
@@ -146,12 +148,22 @@
   document.querySelector('#login-button').addEventListener("click", () => {
     var email = document.querySelector("#email");
     var password = document.querySelector("#password");
-    firebase.auth().signInWithEmailAndPassword(email.value, password.value).catch(function(error) {
-      then(function(user) {
-        console.log(auth.currentUser.email)
-      }, function(error) {
-        console.log(error.message);
-      });
+    firebase.auth().signInWithEmailAndPassword(email.value, password.value).then(function (user) {
+      console.log("Signed in successfully")
+      console.log(firebase.getAuth().password.email)
+      let name = user.displayName
+      document.getElementById("welcome-text").innerHTML = `Welcome, ${name}`;
+      document.querySelector('#memberModal').classList.remove("is-active");
+    }).catch(function (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+
+      if (errorCode === 'auth/wrong-password') {
+        alert('Wrong password.');
+      } else {
+        alert(errorMessage);
+      }
+      console.log(error);
     });
   });
 </script>
