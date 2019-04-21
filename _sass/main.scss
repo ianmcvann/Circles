@@ -28,14 +28,18 @@ $primary-invert: $pink-invert;
 @import "../node_modules/bulma/sass/utilities/initial-variables";
 $back-gray: #F0F0F0;
 $test-blue: #3993dd;
+$secondary-gray: #AAA;
 $navbar-background-color: #FFFFFB;
 
+
+@import "../node_modules/bulma/bulma";
 body,
 html {
   position: relative;
   background: $back-gray;
   height: 100%;
   padding: 0;
+  overflow-y: auto;
 
 }
 body {
@@ -48,23 +52,91 @@ body {
 }
 #right-arrow {
   text-align: right;
+  padding: 0;
+  margin-top: 50vh;
 }
+
 #left-arrrow {
   text-align: left;
+  padding: 0%;
+  margin-top: 50vh !important;
 }
+#post-section {
+  margin-top: 25vh;
+  padding: 0;
+}
+#post-column {
+  padding: 0 .75rem 0 .75rem;
+}
+
+.nav-arrow {
+  color: $secondary-gray;
+  svg {
+    cursor: pointer;
+  }
+}
+
 #left-circle-nav {
   background: #FFFFFB;
   height: 100%;
   min-height: 100%;
+  transition: transform 375ms ease;
+  &.collapsed {
+    transform: translateX(-25vw);
+  }
 }
+
 #main-cols {
   height: 100%;
   min-height: 100%;
   background: $back-gray;
+  margin-bottom: 0%;
 }
 .text-center {
-  text-align: center !important;
+  text-align: center;
+}
+.columns {
+  margin: 0;
+}
+.profile-img {
+  border-radius: 100%
+}
+.post-img {
+  border-radius: 16px 16px 0 0;
 }
 
+.card {
+  border-radius: 16px;
+}
 
-@import "../node_modules/bulma/bulma";
+.card-content {
+  border-radius: 16px;
+  margin-top: -16px;
+  background-color: white;
+  position: relative;
+  z-index: 8;
+
+  time {
+    margin-top: 16px;
+    display: block;
+    color: darken($secondary-gray, 10%);
+  }
+}
+.columns:last-child {
+  margin-bottom: 0%;
+}
+#collapse-btn {
+  color: $secondary-gray;
+  svg {
+    cursor: pointer;
+  }
+  text-align: left;
+  margin-left: 16px;
+  margin-top: 50vh !important;
+}
+#collapse-btn-div {
+  transition: transform 400ms ease;
+  &.collapsed {
+    transform: translateX(-25vw);
+  }
+}

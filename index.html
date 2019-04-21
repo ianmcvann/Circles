@@ -14,7 +14,6 @@
 </head>
 
 <body>
-
   <div class="columns" id="main-cols">
     <div class="column is-3" id="left-circle-nav">
       <section class="section">
@@ -47,24 +46,26 @@
         </aside>
       </section>
     </div>
-    <div class="column">
+    <div id="collapse-btn-div">
+      <i id="collapse-btn" onclick="collapseNav(event)" class="fas fa-angle-left fa-3x"></i>
+    </div>
       <div class="columns is-centered">
-        <div class="column is-1" id="left-arrrow">
-          <i class="fas fa-chevron-circle-left fa-3x m-t-xxxls"></i>
+        <div class="column is-1 nav-arrow" id="left-arrrow">
+          <i class="fas fa-chevron-circle-left fa-3x"></i>
         </div>
-        <div class="column is-5">
-          <section class="section m-t-xl">
+        <div class="column is-5" id="post-column">
+          <section class="section" id="post-section">
             <div class="card">
               <div class="card-image">
                 <figure class="image is-3by2">
-                  <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                  <img class="post-img" src="assets/placeholder_1280x960.jpg" alt="Placeholder image">
                 </figure>
               </div>
               <div class="card-content">
                 <div class="media">
                   <div class="media-left">
                     <figure class="image is-48x48">
-                      <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                      <img class="profile-img" src="assets/placeholder_96x96.jpg" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="media-content">
@@ -84,12 +85,11 @@
             </div>
           </section>
         </div>
-        <div class="column is-1" id="right-arrow">
-          <i class="fas fa-chevron-circle-right fa-3x m-t-xxxls"></i>
+        <div class="column is-1 nav-arrow" id="right-arrow">
+          <i class="fas fa-chevron-circle-right fa-3x"></i>
         </div>
       </div>
     </div>
-  </div>
   <div class="modal is-active" id="memberModal">
     <div class="modal-background"></div>
     <div class="modal-content">
@@ -166,8 +166,11 @@
       console.log(error);
     });
   });
-</script>
-<script>
+
+  function collapseNav(event) {
+    document.querySelector('#left-circle-nav').classList.toggle('collapsed');
+    document.querySelector('#collapse-btn-div').classList.toggle("collapsed")
+  };
   document.querySelector('#modal-close-button').addEventListener("click", () => {
     document.querySelector('#memberModal').classList.remove("is-active");
   })
