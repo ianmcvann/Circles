@@ -7029,11 +7029,19 @@ body {
   color: #AAA;
   text-align: left;
   margin-left: 16px;
-  margin-top: 50vh !important; }
+  margin-top: 50vh !important;
+  transition: transform 400ms ease; }
   #collapse-btn svg {
     cursor: pointer; }
+  #collapse-btn.collapsed {
+    transform: rotate(180deg); }
 
 #collapse-btn-div {
   transition: transform 400ms ease; }
   #collapse-btn-div.collapsed {
     transform: translateX(-25vw); }
+
+#main-area {
+  transition: transform 400ms ease; }
+  #main-area.collapsed {
+    transform: translateX(10vw); }

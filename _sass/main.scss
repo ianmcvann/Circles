@@ -133,10 +133,20 @@ body {
   text-align: left;
   margin-left: 16px;
   margin-top: 50vh !important;
+  transition: transform 400ms ease;
+  &.collapsed {
+    transform: rotate(180deg);
+  }
 }
 #collapse-btn-div {
   transition: transform 400ms ease;
   &.collapsed {
     transform: translateX(-25vw);
+  }
+}
+#main-area {
+  transition: transform 400ms ease;
+  &.collapsed {
+    transform: translateX(+10vw);
   }
 }

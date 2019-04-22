@@ -49,11 +49,12 @@
     <div id="collapse-btn-div">
       <i id="collapse-btn" onclick="collapseNav(event)" class="fas fa-angle-left fa-3x"></i>
     </div>
+    <div id="main-area" class="collapsed">
       <div class="columns is-centered">
         <div class="column is-1 nav-arrow" id="left-arrrow">
           <i class="fas fa-chevron-circle-left fa-3x"></i>
         </div>
-        <div class="column is-5" id="post-column">
+        <div class="column is-6" id="post-column">
           <section class="section" id="post-section">
             <div class="card">
               <div class="card-image">
@@ -87,6 +88,7 @@
         </div>
         <div class="column is-1 nav-arrow" id="right-arrow">
           <i class="fas fa-chevron-circle-right fa-3x"></i>
+        </div>
         </div>
       </div>
     </div>
@@ -122,7 +124,7 @@
             </button>
             <p>
               Don't have an account?
-              <a href="/registrations/new">Sign Up</a>
+              <a id="signup-modal-btn">Sign Up</a>
             </p>
           </p>
         </div>
@@ -130,8 +132,82 @@
     </div>
     <button class="modal-close is-large" aria-label="close" id="modal-close-button"></button>
   </div>
+  <div class="modal" id="signupModal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box has-text-centered">
+          <h1 class="title is-2">Circles</h1>
+          <h1 class="subtitle is-4">Please register to continue.</h1>
+          <div class="field">
+              <p class="control has-icons-left">
+                <input class="input" type="text" placeholder="First Name" id="first-name">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input" type="text" placeholder="Last Name" id="last-name">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </p>
+              </div>
+          <div class="field">
+            <p class="control has-icons-left has-icons-right">
+              <input class="input" type="email" placeholder="Email" id="email_signup">
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" type="password" placeholder="Password" id="password_signup">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+              <p class="control has-icons-left">
+                <input class="input" type="tel" placeholder="Phone Number (No dashes)" id="phone-num">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-phone"></i>
+                </span>
+              </p>
+          </div>
+          <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input" type="date" id="date-of-birth">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-calendar"></i>
+                  </span>
+                </p>
+          </div>
+          <div class="field">
+            <p class="control has-text-centered">
+              <button onclick="signupUser(event)" class="button is-success are-medium" id="signup-button">
+                Register
+              </button>
+              <p>
+                Already have an account?
+                <a id="login-modal-btn">Login</a>
+              </p>
+            </p>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close" id="signup-close-button"></button>
+    </div>
 </body>
-<script src="/node_modules/firebase/firebase.js"></script>
+<script src="/node_modules/firebase/firebase-app.js"></script>
+<script src="/node_modules/firebase/firebase-auth.js"></script>
+<script src="/node_modules/firebase/firebase-firestore.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -143,6 +219,7 @@
     messagingSenderId: "500229346462"
   };
   firebase.initializeApp(config);
+  var db = firebase.firestore()
 </script>
 <script>
   document.querySelector('#login-button').addEventListener("click", () => {
@@ -150,9 +227,6 @@
     var password = document.querySelector("#password");
     firebase.auth().signInWithEmailAndPassword(email.value, password.value).then(function (user) {
       console.log("Signed in successfully")
-      console.log(firebase.getAuth().password.email)
-      let name = user.displayName
-      document.getElementById("welcome-text").innerHTML = `Welcome, ${name}`;
       document.querySelector('#memberModal').classList.remove("is-active");
     }).catch(function (error) {
       var errorCode = error.code;
@@ -170,10 +244,54 @@
   function collapseNav(event) {
     document.querySelector('#left-circle-nav').classList.toggle('collapsed');
     document.querySelector('#collapse-btn-div').classList.toggle("collapsed")
+    document.querySelector('#collapse-btn').classList.toggle("collapsed")
+    document.querySelector('#main-area').classList.toggle("collapsed")
+
+    
   };
   document.querySelector('#modal-close-button').addEventListener("click", () => {
-    document.querySelector('#memberModal').classList.remove("is-active");
+    document.querySelector('#memberModal').classList.toggle("is-active");
   })
+  document.querySelector('#signup-close-button').addEventListener("click", () => {
+    document.querySelector('#signupModal').classList.toggle("is-active");
+  })
+  document.querySelector('#signup-modal-btn').addEventListener("click", () => {
+    document.querySelector('#memberModal').classList.remove("is-active");
+    document.querySelector('#signupModal').classList.add("is-active");
+  })
+  document.querySelector('#login-modal-btn').addEventListener("click", () => {
+    document.querySelector('#memberModal').classList.add("is-active");
+    document.querySelector('#signupModal').classList.remove("is-active");
+  })
+  function signupUser(event) {
+    var firstName = document.querySelector("#first-name");
+    var lastName = document.querySelector("#last-name");
+    var email = document.querySelector("#email_signup");
+    var password = document.querySelector("#password_signup");
+    var phone = document.querySelector("#phone-num");
+    var dob = document.querySelector("#date-of-birth");
+    firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (user) {
+      console.log("Signed in successfully")
+      document.querySelector('#signupModal').classList.remove("is-active");
+    }).then(function(addUser) {
+      db.collection("users").add({
+        first_name: firstName.value,
+        last_name: lastName.value,
+        email: email.value,
+        phone: phone.value,
+        date_of_birth: dob.value,
+    })}).catch(function (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+
+      if (errorCode === 'auth/wrong-password') {
+        alert('Wrong password.');
+      } else {
+        alert(errorMessage);
+      }
+      console.log(error);
+    })
+  }
 </script>
 
 </html>
